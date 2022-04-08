@@ -74,7 +74,8 @@ def aplca_data_to_CSV_weak(lst):
 def make_order(lst, qty=10):
     for stock in lst:
         api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
-        return print(api.list_orders(status='open', limit=len(lst), nested=True))
+
+    return print(api.list_orders(status='open', limit=len(lst), nested=True))
 
 def get_active_orders():
     return(print(api.list_orders(status='open', limit=25, nested=True)))
@@ -110,12 +111,14 @@ end = '2022-04-06'
 # print(strongDf)
 
 
-p = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
-
-print(p.loc[:,'close'])
-
+# p = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
+#
+# print(p.loc[:,'close'])
+# buys = ['THRX', 'BPT', 'NRT', 'IPI', 'EMBK', 'CRGY', 'HUDI', 'AR', 'UTAAU']
+# order = make_order(buys,25)
 # g = get_active_orders()
 # x = cancel_orders()
+print(strong)
 #
 # g = get_active_orders()
 

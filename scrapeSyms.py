@@ -44,3 +44,6 @@ def add_days_strong(lst):
 def add_days_weak(lst):
     for stock in lst:
         weakDf.loc[len(weakDf)] = stock
+
+a = add_days_strong(strong)
+b = add_days_weak(weak)
