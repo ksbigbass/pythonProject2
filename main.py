@@ -110,9 +110,9 @@ end = '2022-04-06'
 # print(strongDf)
 
 
-p = api.get_bars("AAPL", TimeFrame.Hour, start, end, adjustment='raw').df
+p = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
 
-print(p)
+print(p.loc[:,'close'])
 
 # g = get_active_orders()
 # x = cancel_orders()
