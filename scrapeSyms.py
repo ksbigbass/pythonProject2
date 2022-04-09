@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import os.path
+import datetime as dt
 
 URL = "https://www.eseykota.com/TT/PHP_TT/TT_charts/stocks/myList.txt"
 r = requests.get(URL)
@@ -14,6 +15,9 @@ tag = (str(soup.encode_contents()))
 r = re.compile('[A-Z]')
 special_char = '@_!#$%^&*()<>?/\|}{~:;.[]rn'
 
+date = pd.DataFrame({'year': [2022, 2023],
+                     'month': [1, 2],
+                     'day': [5, 6]})
 modSyms = []
 
 for w in tag.split('\\n'):
@@ -24,28 +28,12 @@ modSyms = list(filter(r.match, modSyms))
 cleanSyms = [''.join(x for x in string if not x in special_char)
              for string in modSyms]
 
-strong = [x for x in cleanSyms[0:15]] #make the strong list 0-14
-strongDf = pd.DataFrame(strong, columns=['strong'])
+strong = [x for x in cleanSyms[0:15]]  # make the strong list 0-14
+strongDf = pd.DataFrame(strong, columns=['sym'])
+strongDf['count'] = 0
+strongDf['date'] = dt.date.today()
 
-
-weak = [x for x in cleanSyms[15:]]  #make the weak list 15-30
-weakDf = pd.DataFrame(weak, columns=['weak'])
-
-
-
-def add_days_strong(lst):
-    for stock in lst:
-        strongDf.loc[len(strong)] = stock
-        return print (strongDf)
-
-#
-# def add_days_weak(lst):
-#     for stock in lst:
-#         weakDf.loc[len(weakDf)] = stock
-#         return print (weakDf)
-
-# a = add_days_strong(strong)
-# b = add_days_weak(weak)
-
-# print(strongDf)
-# print(strong)
+weak = [x for x in cleanSyms[15:]]  # make the weak list 15-30
+weakDf = pd.DataFrame(weak, columns=['sym'])
+weakDf['count'] = 0
+weakDf['date'] = dt.date.today()

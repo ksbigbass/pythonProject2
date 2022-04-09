@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from xmlrpc.client import DateTime
 
-import compare
+import compareSyms
 
 """
 Created on Fri Mar 25 13:53:20 2022
@@ -134,6 +134,6 @@ print(strong)
 
 buys = ['GE', 'BPT', 'APPS', 'IPI', 'TSLA', 'GOOG', 'HUDI', 'AR', 'UTAAU']
 
-xxx = compare.add_to_dataframe()
-# print(compare.sell)
-print(compare.sdf)
+xxx = compareSyms.create_sell_list(buys)
+print(compareSyms.sdf)
+print(compareSyms.sell)
