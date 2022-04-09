@@ -1,12 +1,7 @@
-## -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 # -*- coding: utf-8 -*-
 from xmlrpc.client import DateTime
+
+import compare
 
 """
 Created on Fri Mar 25 13:53:20 2022
@@ -15,7 +10,6 @@ Created on Fri Mar 25 13:53:20 2022
 """
 import plotly.express as px
 import plotly.graph_objects as go
-# import talib as ta
 import re
 from alpaca_trade_api.rest import REST, TimeFrame, TimeFrameUnit
 import alpaca_trade_api as tradeapi
@@ -25,6 +19,9 @@ import csv
 import datetime
 from datetime import timedelta
 import pandas as pd
+
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.max_rows', 50)
 import numpy as np
 import matplotlib.pyplot as plt
 import os.path
@@ -77,8 +74,10 @@ def make_order(lst, qty=10):
 
     return print(api.list_orders(status='open', limit=len(lst), nested=True))
 
+
 def get_active_orders():
-    return(print(api.list_orders(status='open', limit=25, nested=True)))
+    return (print(api.list_orders(status='open', limit=25, nested=True)))
+
 
 def cancel_orders():
     api.cancel_all_orders()
@@ -96,8 +95,8 @@ def plot_sym(sym):
                                                      close=sym['close'])])
     candlestick_fig.update_layout(
         title="Candlestick chart for {0}".format(sym),
-        xaxis_title= start + ' ' + end,
-        yaxis_title="Price {0}".format(api.get_bars(sym,timeframe)))
+        xaxis_title=start + ' ' + end,
+        yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
     candlestick_fig.show()
 
 
@@ -123,3 +122,18 @@ print(strong)
 # g = get_active_orders()
 
 # if __name__ == '__main__':
+# portfolio = api.list_positions()
+#
+# # Print the quantity of shares for each position.
+# for position in portfolio:
+#     print("{} shares of {}".format(position.qty, position.symbol))
+#
+# m = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
+# print(m)
+
+
+buys = ['GE', 'BPT', 'APPS', 'IPI', 'TSLA', 'GOOG', 'HUDI', 'AR', 'UTAAU']
+
+xxx = compare.add_to_dataframe()
+# print(compare.sell)
+print(compare.sdf)

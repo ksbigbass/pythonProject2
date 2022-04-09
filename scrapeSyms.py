@@ -2,10 +2,7 @@ import re
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-
 import os.path
-
-
 
 URL = "https://www.eseykota.com/TT/PHP_TT/TT_charts/stocks/myList.txt"
 r = requests.get(URL)
@@ -27,23 +24,28 @@ modSyms = list(filter(r.match, modSyms))
 cleanSyms = [''.join(x for x in string if not x in special_char)
              for string in modSyms]
 
-strong = [x for x in cleanSyms[0:15]]
+strong = [x for x in cleanSyms[0:15]] #make the strong list 0-14
 strongDf = pd.DataFrame(strong, columns=['strong'])
-strongCsv = strongDf.to_csv('strong.csv', 'a', index=True)
 
-weak = [x for x in cleanSyms[15:]]
+
+weak = [x for x in cleanSyms[15:]]  #make the weak list 15-30
 weakDf = pd.DataFrame(weak, columns=['weak'])
-weakCsv = weakDf.to_csv('weak.csv', 'a', index=True)
+
 
 
 def add_days_strong(lst):
     for stock in lst:
-        strongDf.loc[len(strongDf)] = stock
+        strongDf.loc[len(strong)] = stock
+        return print (strongDf)
 
+#
+# def add_days_weak(lst):
+#     for stock in lst:
+#         weakDf.loc[len(weakDf)] = stock
+#         return print (weakDf)
 
-def add_days_weak(lst):
-    for stock in lst:
-        weakDf.loc[len(weakDf)] = stock
+# a = add_days_strong(strong)
+# b = add_days_weak(weak)
 
-a = add_days_strong(strong)
-b = add_days_weak(weak)
+# print(strongDf)
+# print(strong)
