@@ -10,6 +10,10 @@ def create_sell_list(lst):
             sell.append(stock)
 
 
+# def create_count(df):
+#     for stock in df.column['sym'] in (scrapeSyms.strongDf):
+#         if stock not in (scrapeSyms.strongDf):
+#             scrapeSyms.sdf.append(stock)
 
 
 
