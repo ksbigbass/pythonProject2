@@ -44,7 +44,7 @@ api = tradeapi.REST(API_KEY, SECRET_KEY, base_url, api_version='v2')
 
 weak = scrapeSyms.weak
 strong = scrapeSyms.strong
-
+account = api.get_account()
 
 def aplca_data_to_CSV_strong(lst):
     for stock in lst:
@@ -73,6 +73,26 @@ def make_order(lst, qty=10):
         api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
 
     return print(api.list_orders(status='open', limit=len(lst), nested=True))
+
+def  stop_loss_order(lst,qty=10): #We could buy a position and add a stop-loss and a take-profit of 5 %
+    
+
+    for stock in lst:
+
+        symbol = 'stock'
+        symbol_bars = api.get_bars_iter(symbol, 'minute', 1).df.iloc[0]
+        symbol_price = symbol_bars[symbol]['close']
+
+        api.submit_order(
+        symbol=symbol,
+        qty=1,
+        side='buy',
+        type='market',
+        time_in_force='gtc',
+        order_class='oto',
+        stop_loss={'stop_price': symbol_price * 0.95}
+    )
+        
 
 
 def get_active_orders():
@@ -116,24 +136,20 @@ end = '2022-04-06'
 # buys = ['THRX', 'BPT', 'NRT', 'IPI', 'EMBK', 'CRGY', 'HUDI', 'AR', 'UTAAU']
 # order = make_order(buys,25)
 # g = get_active_orders()
-# x = cancel_orders()
-print(strong)
-#
-# g = get_active_orders()
-
-# if __name__ == '__main__':
-# portfolio = api.list_positions()
-#
-# # Print the quantity of shares for each position.
-# for position in portfolio:
-#     print("{} shares of {}".format(position.qty, position.symbol))
-#
-# m = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
-# print(m)
 
 
-buys = ['GE', 'BPT', 'APPS', 'IPI', 'TSLA', 'GOOG', 'HUDI', 'AR', 'UTAAU']
+ 
+# xxx = compareSyms.create_sell_list(buys)
+# print(compareSyms.sdf)
+# print(compareSyms.sell)
 
-xxx = compareSyms.create_sell_list(buys)
-print(compareSyms.sdf)
-print(compareSyms.sell)
+# # cx = compareSyms.create_count(scrapeSyms.strongDf)
+# # print(compareSyms.sdf)
+# x = api.cancel_all_orders()
+# make_order(['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ])
+# # stop_loss_order(buys)
+balance_change = float(account.equity) - float(account.last_equity)
+bal = float(account.last_equity)
+print(f'Today\'s portfolio balance change: ${balance_change}')
+print(bal)
+print(api.list_positions())
