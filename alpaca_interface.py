@@ -74,6 +74,20 @@ def make_order(lst, qty=10):
 
     return print(api.list_orders(status='open', limit=len(lst), nested=True))
 
+
+def sell_list_order(sym):
+    qty = api.get_asset(sym)
+    print(qty)
+    # for stock in lst:
+    #     api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
+
+    # return print(api.list_orders(status='open', limit=len(lst), nested=True))
+
+
+
+
+
+
 def  stop_loss_order(lst,qty=10): #We could buy a position and add a stop-loss and a take-profit of 5 %
     
 
@@ -120,7 +134,7 @@ def plot_sym(sym):
     candlestick_fig.show()
 
 
-sym = 'apps'
+sym = 'LXU'
 timeframe = '1Day'
 start = '2022-04-05'
 end = '2022-04-06'
@@ -139,17 +153,15 @@ end = '2022-04-06'
 
 
  
-xxx = compareSyms.create_sell_list(scrapeSyms.strong)
-print(compareSyms.sdf)
-print(compareSyms.sell)
+# xxx = compareSyms.create_sell_list(scrapeSyms.strong)
+# print(compareSyms.sdf)
+# print(compareSyms.sell)
 
 # # cx = compareSyms.create_count(scrapeSyms.strongDf)
 # # print(compareSyms.sdf)
 # x = api.cancel_all_orders()
 # make_order(['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ])
-
-
-# make_order(['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'],10)  
+test1 =['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ]
 # # stop_loss_order(buys)
 # balance_change = float(account.equity) - float(account.last_equity)
 # bal = float(account.last_equity)
@@ -157,5 +169,4 @@ print(compareSyms.sell)
 # print(bal)
  
 # # x = api.get_bars(sym, timeframe, start, end).df
-
-# print(compareSyms.sell)
+sell_list_order(sym)
