@@ -139,18 +139,23 @@ end = '2022-04-06'
 
 
  
-# xxx = compareSyms.create_sell_list(buys)
-# print(compareSyms.sdf)
-# print(compareSyms.sell)
+xxx = compareSyms.create_sell_list(scrapeSyms.strong)
+print(compareSyms.sdf)
+print(compareSyms.sell)
 
 # # cx = compareSyms.create_count(scrapeSyms.strongDf)
 # # print(compareSyms.sdf)
 # x = api.cancel_all_orders()
 # make_order(['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ])
+
+
+# make_order(['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'],10)  
 # # stop_loss_order(buys)
 # balance_change = float(account.equity) - float(account.last_equity)
 # bal = float(account.last_equity)
 # print(f'Today\'s portfolio balance change: ${balance_change}')
 # print(bal)
-for stock in scrapeSyms.strong:
-    print(type(api.get_bars(stock,TimeFrame.Day)))
+ 
+# # x = api.get_bars(sym, timeframe, start, end).df
+
+# print(compareSyms.sell)

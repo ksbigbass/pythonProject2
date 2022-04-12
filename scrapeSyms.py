@@ -37,3 +37,5 @@ weak = [x for x in cleanSyms[15:]]  # make the weak list 15-30
 weakDf = pd.DataFrame(weak, columns=['sym'])
 weakDf['count'] = 0
 weakDf['date'] = dt.date.today()
+
+ 
