@@ -38,4 +38,4 @@ weakDf = pd.DataFrame(weak, columns=['sym'])
 weakDf['count'] = 0
 weakDf['date'] = dt.date.today()
 
- 
+# print(strong)

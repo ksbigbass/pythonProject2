@@ -68,12 +68,7 @@ def aplca_data_to_CSV_weak(lst):
             df.to_csv('AlpacaWeakDf.csv', mode='a', index=True, header=f.tell() == 0)
 
 
-def make_order(lst, qty=10):
-    for stock in lst:
-        api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
-
-    return print(api.list_orders(status='open', limit=len(lst), nested=True))
-
+  
 
 def sell_list_order(sym):
     qty = api.get_asset(sym)
@@ -82,10 +77,6 @@ def sell_list_order(sym):
     #     api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
 
     # return print(api.list_orders(status='open', limit=len(lst), nested=True))
-
-
-
-
 
 
 def  stop_loss_order(lst,qty=10): #We could buy a position and add a stop-loss and a take-profit of 5 %
@@ -134,10 +125,36 @@ def plot_sym(sym):
     candlestick_fig.show()
 
 
+def make_order(sym):
+    last_price= api.get_latest_trade(sym).price
+    bal = float(account.last_equity)
+    print(bal)
+    qty = bal *.03 // last_price
+    position = int(api.get_position(sym).qty)
+     
+    api.submit_order(sym, qty, side='buy', type='market', time_in_force='day')
+    print(f"Balance was {bal} and you just placed a BUY order for {qty} shares of {sym}")
+
+    # return print(api.list_orders(status='open', limit=1, nested=True))
+
+
+
+
+
 sym = 'LXU'
-timeframe = '1Day'
-start = '2022-04-05'
-end = '2022-04-06'
+# timeframe = '1Day'
+# start = '2022-04-05'
+# end = '2022-04-06'
+
+
+
+
+
+make_order(sym)
+
+
+
+
 
 # x = api.get_bars(sym, timeframe, start, end).df
 # plot_sym(x)
@@ -147,26 +164,16 @@ end = '2022-04-06'
 # p = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
 #
 # print(p.loc[:,'close'])
-# buys = ['THRX', 'BPT', 'NRT', 'IPI', 'EMBK', 'CRGY', 'HUDI', 'AR', 'UTAAU']
-# order = make_order(buys,25)
-# g = get_active_orders()
 
-
- 
-# xxx = compareSyms.create_sell_list(scrapeSyms.strong)
-# print(compareSyms.sdf)
-# print(compareSyms.sell)
-
-# # cx = compareSyms.create_count(scrapeSyms.strongDf)
-# # print(compareSyms.sdf)
-# x = api.cancel_all_orders()
-# make_order(['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ])
-test1 =['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ]
+# test1 =['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU' ]
 # # stop_loss_order(buys)
 # balance_change = float(account.equity) - float(account.last_equity)
 # bal = float(account.last_equity)
 # print(f'Today\'s portfolio balance change: ${balance_change}')
 # print(bal)
- 
+# print(scrapeSyms.strong)
+# make_order(['OILU', 'LXU', 'CRGY', 'BPT',  'SGML',   'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV',  'AR', 'UAN'])
 # # x = api.get_bars(sym, timeframe, start, end).df
-sell_list_order(sym)
+# sell_list_order(sym)
+
+ 

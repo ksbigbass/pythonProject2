@@ -18,10 +18,10 @@ sellTestA = ['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NR
 sellTestB = ['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN']
 
 
-create_sell_list(sellTestA)
+# create_sell_list(sellTestA)
 
-print(sell)
+# print(sell)
 
-create_sell_list(sellTestB)
-print(sell)
+# create_sell_list(sellTestB)
+# print(sell)
 
