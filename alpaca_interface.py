@@ -137,28 +137,63 @@ def make_order(sym):
 
     # return print(api.list_orders(status='open', limit=1, nested=True))
 
+def make_order_lst(lst):
+    for sym in lst:
+
+        my_positions = api.list_positions()
+        my_positions_df = pd.DataFrame([position._raw for position in my_positions])
+        my_positions_df.set_index('symbol', inplace=True)
+        
+        last_price= api.get_latest_trade(sym).price
+
+        bal = float(account.last_equity)
+        qty2 = bal *.03 // last_price
+        position = int(api.get_position(sym).qty)
+
+    # Then check if a particular stock is in the index
+    if sym in my_positions_df.index:
+        qty = float(my_positions_df.at[sym, 'qty'])
+
+    else:
+        qty = 0
+
+#     for sym in lst:
+#         try:
+#             api.submit_order(sym, qty, side='buy', type='market', time_in_force='day')
+
+#         except:
+#             print('E')
+
+#         else:
+#             print(f"Balance was {bal} and you just placed a BUY order for {qty} shares of {sym}")
+
+  
+# make_order_lst(['OILU', 'LXU', 'CRGY', 'BPT',  'SGML',   'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV',   'AR', 'UAN'])
 
 
 
 
-sym = 'LXU'
-timeframe = '1Day'
-start = '2022-04-05'
-end = '2022-04-06'
+# sym = 'LXU'
+# timeframe = '1Day'
+# start = '2022-04-05'
+# end = '2022-04-06'
+
+# pos = api.get_position(sym)
+# print(pos)
 
 
 
 
 
-make_order(sym)
+# make_order(sym)
 
 
 
 
 
-x = api.get_bars(sym, timeframe, start, end).df
-plot_sym(x)
-# print(strongDf)
+# x = api.get_bars(sym, timeframe, start, end).df
+# plot_sym(x)
+# print(scrapeSyms.strongDf)
 
 
 # p = api.get_bars("AAPL", TimeFrame.Day, end, end, adjustment='raw').df
