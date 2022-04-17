@@ -30,7 +30,7 @@ class AlpacaTrader(object):
         self.current_order = None
 
         # The closing price of the last aggregate we saw
-        self.last_price = api.get_latest_trade(self.symbol).price
+        # self.last_price = api.get_latest_trade(self.symbol).price
 
         # The connection to the Alpaca API
         self.api = tradeapi.REST(
@@ -60,12 +60,14 @@ class AlpacaTrader(object):
     def send_order(self, target_qty):
         if self.position == 0:
             api.submit_order(self.symbol, target_qty, side='buy', type='market', time_in_force='day')
-            return print ('made order')
+            return print (f'made order {target_qty} of {self.symbol} at {self.last_price}')
 
          
     def postion_size(self):
+        self.last_price = api.get_latest_trade(self.symbol).price
         target_qty = self.balance *.03 // self.last_price
         self.send_order(target_qty)
+
 
        
 
