@@ -142,9 +142,9 @@ def make_order(sym):
 
 
 sym = 'LXU'
-# timeframe = '1Day'
-# start = '2022-04-05'
-# end = '2022-04-06'
+timeframe = '1Day'
+start = '2022-04-05'
+end = '2022-04-06'
 
 
 
@@ -156,8 +156,8 @@ make_order(sym)
 
 
 
-# x = api.get_bars(sym, timeframe, start, end).df
-# plot_sym(x)
+x = api.get_bars(sym, timeframe, start, end).df
+plot_sym(x)
 # print(strongDf)
 
 
