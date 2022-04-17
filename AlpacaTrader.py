@@ -50,8 +50,12 @@ class AlpacaTrader(object):
             self.balance = float(self.account.last_equity)
         except:
             self.balance = 0.00
-            
 
+    def set_symbol(self,symbol):
+        self.symbol = symbol
+
+    def get_symbol(self):
+        return print(self.symbol)         
 
     def send_order(self, target_qty):
         if self.position == 0:
@@ -69,7 +73,8 @@ class AlpacaTrader(object):
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    # Order five shares
-    # trader.send_order(100)
-    
+    trader.set_symbol('GE')
+    trader.get_symbol()
+  
     trader.postion_size()
+   
