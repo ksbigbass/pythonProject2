@@ -1,5 +1,6 @@
 import alpaca_trade_api as tradeapi
 import pandas as pd
+import scrapeSyms
 
 base_url = "https://paper-api.alpaca.markets"
 # base_url = 'https://data.alpaca.markets/v2'
@@ -22,10 +23,13 @@ class AlpacaTrader(object):
         self.secret_key = SECRET_KEY
         self.base_url = 'https://paper-api.alpaca.markets'
         self.account = api.get_account()
+        
 
 
         # The symbol we will be trading
         self.symbol = 'TSLA'
+        # self.symbol_lst = []
+
         # When this variable is not None, we have an order open
         self.current_order = None
 
@@ -55,13 +59,33 @@ class AlpacaTrader(object):
         self.symbol = symbol
 
     def get_symbol(self):
-        return print(self.symbol)         
+        return print(self.symbol)
+
+    def set_symbol_lst(self,symbol_lst):
+       pass
+
+    def get_symbol_lst(self,symbol_lst):
+        return print(self.symbol_lst)           
+
+    def nasdaq(self):
+        active_assets = api.list_assets(status='active')
+        # Filter the assets down to just those on NASDAQ.
+        nasdaq_assets = [a for a in active_assets if a.exchange == 'NASDAQ']
+        print(nasdaq_assets)
+
+    def is_tradeable(self):
+        try:
+            asset = api.get_asset(self.symbol)
+            if asset.tradable:
+                print(f'We can trade {self.symbol}.')
+
+        except:
+            print('no')
 
     def send_order(self, target_qty):
         if self.position == 0:
-            api.submit_order(self.symbol, target_qty, side='buy', type='market', time_in_force='day')
+            # api.submit_order(self.symbol, target_qty, side='buy', type='market', time_in_force='day')
             return print (f'made order {target_qty} of {self.symbol} at {self.last_price}')
-
          
     def postion_size(self):
         self.last_price = api.get_latest_trade(self.symbol).price
@@ -69,14 +93,20 @@ class AlpacaTrader(object):
         self.send_order(target_qty)
 
 
-       
+    def todays_win_loss(self):
+        balance_change = float(self.account.equity) - float(self.account.last_equity)
+        print(f'Today\'s portfolio balance change: ${balance_change}')  
 
-        
+    def buying_power(self):
+        return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    trader.set_symbol('GE')
-    trader.get_symbol()
+    trader.set_symbol('CHKEL')
+    # trader.get_symbol()
   
-    trader.postion_size()
-   
+    # trader.postion_size()
+    # trader.todays_win_loss()
+    # trader.buying_power()
+    # trader.nasdaq()
+  
