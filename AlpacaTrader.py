@@ -28,10 +28,10 @@ class AlpacaTrader(object):
 
         # The symbol we will be trading
         self.symbol = 'TSLA'
-        # self.symbol_lst = []
+        self.symbol_lst = scrapeSyms.strong
 
         # When this variable is not None, we have an order open
-        self.current_order = None
+        # self.current_order = None
 
         # The closing price of the last aggregate we saw
         # self.last_price = api.get_latest_trade(self.symbol).price
@@ -62,9 +62,9 @@ class AlpacaTrader(object):
         return print(self.symbol)
 
     def set_symbol_lst(self,symbol_lst):
-       pass
+        self.symbol_lst = symbol_lst
 
-    def get_symbol_lst(self,symbol_lst):
+    def get_symbol_lst(self):
         return print(self.symbol_lst)           
 
     def nasdaq(self):
@@ -74,18 +74,24 @@ class AlpacaTrader(object):
         print(nasdaq_assets)
 
     def is_tradeable(self):
+       
         try:
-            asset = api.get_asset(self.symbol)
-            if asset.tradable:
-                print(f'We can trade {self.symbol}.')
+            for sym in self.symbol_lst:
+                asset = api.get_asset(sym)
+                try:
+                    if asset.tradable == True:
+                        print(f'We can trade {sym}.')
+                except:
+                    pass
 
         except:
-            print('no')
+            print('error')
+          
 
     def send_order(self, target_qty):
         if self.position == 0:
-            # api.submit_order(self.symbol, target_qty, side='buy', type='market', time_in_force='day')
-            return print (f'made order {target_qty} of {self.symbol} at {self.last_price}')
+            api.submit_order(self.symbol, target_qty, side='buy', type='limit', time_in_force='gtc', limit_price=(int(self.last_price - self.last_price * .10)))
+            return print (f'made order {target_qty} of {self.symbol} at {int(self.last_price - self.last_price * .10)}')
          
     def postion_size(self):
         self.last_price = api.get_latest_trade(self.symbol).price
@@ -102,11 +108,14 @@ class AlpacaTrader(object):
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    trader.set_symbol('CHKEL')
+    trader.set_symbol('APPS')
+    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
+ 
     # trader.get_symbol()
   
-    # trader.postion_size()
+    trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
-  
+    # trader.get_symbol_lst()
+    # trader.is_tradeable()
