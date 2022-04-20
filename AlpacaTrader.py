@@ -105,6 +105,9 @@ class AlpacaTrader(object):
 
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
+
+    def get_fundamentals(self):
+        pass
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
