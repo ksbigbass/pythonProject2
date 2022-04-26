@@ -1,6 +1,9 @@
+from alpaca_trade_api.rest import REST, TimeFrame, TimeFrameUnit
 import alpaca_trade_api as tradeapi
 import pandas as pd
 import scrapeSyms
+import plotly.express as px
+import plotly.graph_objects as go
 
 base_url = "https://paper-api.alpaca.markets"
 # base_url = 'https://data.alpaca.markets/v2'
@@ -29,6 +32,7 @@ class AlpacaTrader(object):
         # The symbol we will be trading
         self.symbol = 'TSLA'
         self.symbol_lst = scrapeSyms.strong
+        self.is_tradeable_lst = []
 
         # When this variable is not None, we have an order open
         # self.current_order = None
@@ -65,7 +69,10 @@ class AlpacaTrader(object):
         self.symbol_lst = symbol_lst
 
     def get_symbol_lst(self):
-        return print(self.symbol_lst)           
+        return print(self.symbol_lst)  
+
+    def get_is_tradable_lst(self):
+        return print(self.is_tradeable_lst)         
 
     def nasdaq(self):
         active_assets = api.list_assets(status='active')
@@ -77,10 +84,11 @@ class AlpacaTrader(object):
        
         try:
             for sym in self.symbol_lst:
-                asset = api.get_asset(sym)
                 try:
+                    asset = api.get_asset(sym)
+                
                     if asset.tradable == True:
-                        print(f'We can trade {sym}.')
+                        self.is_tradeable_lst.append(sym)
                 except:
                     pass
 
@@ -98,6 +106,14 @@ class AlpacaTrader(object):
         target_qty = self.balance *.03 // self.last_price
         self.send_order(target_qty)
 
+    def postion_size_lst(self):
+        for sym in self.is_tradeable_lst:
+            self.symbol = sym
+            self.last_price = api.get_latest_trade(self.symbol).price
+            target_qty = self.balance *.03 // self.last_price
+            print('made it here')
+            self.send_order(target_qty)
+
 
     def todays_win_loss(self):
         balance_change = float(self.account.equity) - float(self.account.last_equity)
@@ -108,17 +124,34 @@ class AlpacaTrader(object):
 
     def get_fundamentals(self):
         pass
+
+    # def plot_sym(sym):
+    #     candlestick_fig = go.Figure(data=[go.Candlestick(x=sym.index,
+    #                                                     open=sym['open'],
+    #                                                     high=sym['high'],
+    #                                                     low=sym['low'],
+    #                                                     close=sym['close'])])
+    #     candlestick_fig.update_layout(
+    #         title="Candlestick chart for {0}".format(sym),
+    #         xaxis_title=start + ' ' + end,
+    #         yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
+    #     candlestick_fig.show()
+    
+    #     x = api.get_bars(sym, timeframe, start, end).df
+    #     plot_sym(x)
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    trader.set_symbol('APPS')
+    # trader.set_symbol('APPS')
     # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
  
     # trader.get_symbol()
   
-    trader.postion_size()
+    # trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
     # trader.get_symbol_lst()
     # trader.is_tradeable()
+    # trader.get_is_tradable_lst()
+    trader.postion_size_lst()

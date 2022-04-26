@@ -30,13 +30,14 @@ cleanSyms = [''.join(x for x in string if not x in special_char)
 
 strong = [x for x in cleanSyms[0:15]]  # make the strong list 0-14
 strongDf = pd.DataFrame(strong, columns=['sym'])
-strongDf['count'] = 0
+strongDf['count'] = 1
 strongDf['date'] = dt.date.today()
 
 weak = [x for x in cleanSyms[15:]]  # make the weak list 15-30
 weakDf = pd.DataFrame(weak, columns=['sym'])
 weakDf['count'] = 0
-weakDf['date'] = dt.date.today()
+# weakDf['date'] = dt.date.today()
 
 # print(strong)
-print(strongDf)
+# print(strongDf)
+# print(weakDf)
