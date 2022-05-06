@@ -2,8 +2,8 @@ from alpaca_trade_api.rest import REST, TimeFrame, TimeFrameUnit
 import alpaca_trade_api as tradeapi
 import pandas as pd
 import scrapeSyms
-import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.express as px
+# import plotly.graph_objects as go
 
 base_url = "https://paper-api.alpaca.markets"
 # base_url = 'https://data.alpaca.markets/v2'
