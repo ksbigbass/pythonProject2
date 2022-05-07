@@ -105,17 +105,28 @@ class AlpacaTrader(object):
 
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
+
+    def get_postions(self):
+        return print(api.list_positions())
+
+
+    def sell_position():
+        pass
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
     trader.set_symbol('APPS')
-    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
- 
+    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'])
+    trader.is_tradeable()
     # trader.get_symbol()
   
-    trader.postion_size()
+    # trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
     # trader.get_symbol_lst()
     # trader.is_tradeable()
+    list = trader.get_postions()
+
+    for i in len(list):
+        print(list[i]['symbol'])
