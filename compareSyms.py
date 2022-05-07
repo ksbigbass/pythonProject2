@@ -22,6 +22,6 @@ sellTestB = ['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI',
 
 # print(sell)
 
-# create_sell_list(sellTestB)
+create_sell_list(sellTestB)
 # print(sell)
 
