@@ -12,31 +12,24 @@ def create_sell_list(lst):
             sell.append(stock)
 
 
-def create_count():
+def create_count(lst):
     try:
-        for stock in scrapeSyms.strong:
-            if stock in sdf.loc[sdf['sym']]:
-                print('x')
-              
-
-        else:
-            print('pass')
+        for stock in lst:
+            if stock in scrapeSyms.strong:
+                print(stock)
+                
+        
+          
 
     except:
         print('error')
 
 
 
-            
-    # for i, row in sdf.iterrows():
-    #     val = row[col]
-    #     if val == 0:
-    #         val +=1
-    #         print(val)
+    
 
-sellTestA = ['LXU', 'NRGV', 'SGML', 'SGLY', 'BPT', 'ZETA',   'IPI', 'THRX',  'NRT', 'OILU', 'MYNA', 'BTU','EMBK','TSLA']
-sellTestB = ['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN']
 
+lst = ['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN']
 
 # create_sell_list()
 
@@ -44,5 +37,5 @@ sellTestB = ['OILU', 'LXU', 'CRGY', 'BPT',  'SGML', 'AMR', 'ZETA', 'NRT', 'IPI',
 
 # create_sell_list(sellTestA)
 # print('sell',sell)
-# create_count()
+create_count(lst)
 # print(sdf)

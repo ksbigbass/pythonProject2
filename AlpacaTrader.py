@@ -2,8 +2,7 @@ from alpaca_trade_api.rest import REST, TimeFrame, TimeFrameUnit
 import alpaca_trade_api as tradeapi
 import pandas as pd
 import scrapeSyms
-# import plotly.express as px
-# import plotly.graph_objects as go
+
 
 base_url = "https://paper-api.alpaca.markets"
 # base_url = 'https://data.alpaca.markets/v2'
@@ -26,8 +25,6 @@ class AlpacaTrader(object):
         self.secret_key = SECRET_KEY
         self.base_url = 'https://paper-api.alpaca.markets'
         self.account = api.get_account()
-        
-
 
         # The symbol we will be trading
         self.symbol = 'TSLA'
@@ -122,37 +119,18 @@ class AlpacaTrader(object):
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
 
-    def get_fundamentals(self):
-        pass
+    def get_positions(self):
+        assets = api.list_positions()
+        symbols = [asset.symbol for asset in assets]
+        count = [asset.qty for asset in assets]
+        return print (symbols,count)
 
-    # def plot_sym(sym):
-    #     candlestick_fig = go.Figure(data=[go.Candlestick(x=sym.index,
-    #                                                     open=sym['open'],
-    #                                                     high=sym['high'],
-    #                                                     low=sym['low'],
-    #                                                     close=sym['close'])])
-    #     candlestick_fig.update_layout(
-    #         title="Candlestick chart for {0}".format(sym),
-    #         xaxis_title=start + ' ' + end,
-    #         yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
-    #     candlestick_fig.show()
-    
-    #     x = api.get_bars(sym, timeframe, start, end).df
-    #     plot_sym(x)
+
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
     # trader.set_symbol('APPS')
     # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
+    # trader.get_positions()
  
-    # trader.get_symbol()
-  
-    # trader.postion_size()
-    # trader.todays_win_loss()
-    # trader.buying_power()
-    # trader.nasdaq()
-    # trader.get_symbol_lst()
-    trader.is_tradeable()
-    # trader.get_is_tradable_lst()
-    # trader.postion_size_lst()
-    # trader.send_order(10)
+   
