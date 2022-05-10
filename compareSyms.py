@@ -1,15 +1,17 @@
 import pandas as pd
 import scrapeSyms
 import datetime as dt
+import AlpacaTrader
 
 
 sell = []
+
 sdf = pd.DataFrame(scrapeSyms.strongDf)
 
-def create_sell_list(lst):
-    for stock in lst:
+def create_sell_list(symbols,count):
+    for stock in symbols:
         if stock not in scrapeSyms.strong:
-            sell.append(stock)
+            AlpacaTrader.api.submit_order(stock, 1, type='limit',limit_price=1)
 
 
 def create_count(lst):
@@ -17,22 +19,22 @@ def create_count(lst):
         for stock in lst:
             if stock in scrapeSyms.strong:
                 print(stock)
-                
-        
-          
 
     except:
         print('error')
 
+def get_positions():
+        assets = AlpacaTrader.api.list_positions()
+        symbols = [asset.symbol for asset in assets]
+        count = [asset.qty for asset in assets]
+        create_sell_list(symbols,count)
 
 
-    
+
+# lst = ['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN']
 
 
-lst = ['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN']
+get_positions()
+ 
 
-# create_sell_list()
 
-# print(sell)
-
-# create_sell_list(sellTestA)
