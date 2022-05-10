@@ -41,5 +41,5 @@ weakDf['date'] = dt.date.today()
 
 
 # print(strong)
-# print(strongDf)
+print(strongDf)
 # print(weakDf)

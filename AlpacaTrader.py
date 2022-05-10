@@ -108,9 +108,7 @@ class AlpacaTrader(object):
             self.symbol = sym
             self.last_price = api.get_latest_trade(self.symbol).price
             target_qty = self.balance *.03 // self.last_price
-            print('made it here')
             self.send_order(target_qty)
-
 
     def todays_win_loss(self):
         balance_change = float(self.account.equity) - float(self.account.last_equity)
@@ -125,18 +123,17 @@ class AlpacaTrader(object):
         count = [asset.qty for asset in assets]
         return print (symbols,count)
 
+    def quick_order(self,symbol,qty=1):
+        api.submit_order(symbol, qty, side='buy', type='market', time_in_force='gtc')
 
-    def get_postions(self):
-        return print(api.list_positions())
 
-
-    def sell_position():
-        pass
-           
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    trader.set_symbol('APPS')
-    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'])
+    trader.set_symbol('NOACW')
+    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'])
+    # trader.quick_order('GE')
+    # trader.get_positions()
     trader.is_tradeable()
-
+    trader.get_is_tradable_lst()
+    trader.postion_size_lst()
            
