@@ -117,12 +117,6 @@ class AlpacaTrader(object):
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
 
-    
-
-
-    # def get_positions(self):
-    #     return api.list_positions()
-
 
     def quick_order(self,symbol,qty=1):
         api.submit_order(symbol, qty, side='buy', type='market', time_in_force='gtc')
@@ -134,7 +128,9 @@ if __name__ == '__main__':
     # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'])
     # trader.quick_order('NOACW')
     # trader.get_positions()
-    trader.is_tradeable()
-    trader.get_is_tradable_lst()
-    trader.postion_size_lst()
+    # trader.is_tradeable()
+    # trader.get_is_tradable_lst()
+    # trader.postion_size_lst()
+    trader.todays_win_loss()
+    trader.buying_power()
            
