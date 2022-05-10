@@ -36,6 +36,15 @@ lst = ['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'N
 # print(sell)
 
 # create_sell_list(sellTestA)
+<<<<<<< HEAD
+
+# print(sell)
+
+create_sell_list(sellTestB)
+# print(sell)
+
+=======
 # print('sell',sell)
 create_count(lst)
 # print(sdf)
+>>>>>>> 99bfb5bf26359fc1a8311ebf30738b6413a8088d

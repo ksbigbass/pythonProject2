@@ -126,11 +126,17 @@ class AlpacaTrader(object):
         return print (symbols,count)
 
 
+    def get_postions(self):
+        return print(api.list_positions())
+
+
+    def sell_position():
+        pass
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    # trader.set_symbol('APPS')
-    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
-    # trader.get_positions()
- 
-   
+    trader.set_symbol('APPS')
+    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'SGML', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'AR', 'UAN'])
+    trader.is_tradeable()
+
+           
